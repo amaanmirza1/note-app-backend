@@ -1,0 +1,17 @@
+from django.db import models
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
+
+class Note(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+
+    is_pinned = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def _str_(self):
+        return self.title
